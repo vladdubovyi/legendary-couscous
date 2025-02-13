@@ -1,0 +1,49 @@
+.card {
+  width: 70%;
+  height: 50vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  user-select: none; /* Prevent text selection while dragging */
+  touch-action: none; /* Prevent scrolling while swiping */
+  cursor: grab; /* Show grab cursor */
+}
+
+.card:active {
+  cursor: grabbing; /* Show grabbing cursor while dragging */
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: #ff6b6b;
+  text-align: center;
+}
+
+.card img {
+  max-width: 90%;
+  max-height: 35vh;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  pointer-events: none; /* Prevent image dragging */
+}
+
+.final-screen {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffe6e6;
+  text-align: center;
+  padding: 20px;
+} 
