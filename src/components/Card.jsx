@@ -4,16 +4,26 @@ import './Card.css';
 
 const Card = ({ title, image, onSwipe }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleClick = () => {
+    if (!isDragging) {
+      setIsFlipped(!isFlipped);
+    }
+  };
 
   const handlers = useSwipeable({
     onSwiping: (e) => {
+      setIsDragging(true);
       setPosition({
         x: e.deltaX,
         y: e.deltaY
       });
     },
     onSwiped: (e) => {
-      if (Math.abs(e.deltaX) > 100) { // Threshold for swipe
+      setIsDragging(false);
+      if (Math.abs(e.deltaX) > 100) {
         const direction = e.deltaX > 0 ? 1 : -1;
         setPosition({
           x: direction * window.innerWidth,
@@ -31,14 +41,25 @@ const Card = ({ title, image, onSwipe }) => {
   });
 
   const style = {
-    transform: `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px)) 
-                rotate(${position.x * 0.1}deg)`
+    transform: position.x || position.y 
+      ? `translate(calc(-50% + ${position.x}px), calc(-50% + ${position.y}px)) rotate(${position.x * 0.1}deg)`
+      : 'translate(-50%, -50%)'
   };
 
   return (
-    <div {...handlers} className="card" style={style}>
-      <h2>{title}</h2>
-      <img src={image} alt={title} />
+    <div {...handlers} className="card-container" style={style}>
+      <div 
+        className={`card-flipper ${isFlipped ? 'is-flipped' : ''}`} 
+        onClick={handleClick}
+      >
+        <div className="card-front">
+          <h2>{title}</h2>
+          <p>Натисни</p>
+        </div>
+        <div className="card-back">
+          <img src={image} alt={title} />
+        </div>
+      </div>
     </div>
   );
 };
